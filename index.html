@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vince Maharil - Professional Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind theme for modern blue aesthetic -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1E40AF', // Deep Blue
+                        'accent-blue': '#3B82F6',  // Medium Blue
+                        'light-bg': '#F3F4F6',    // Light Gray Background
+                        'dark-text': '#1F2937',    // Dark Gray Text
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base styles for the body and main layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6; /* light-bg */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Ensure main content takes remaining space */
+        main {
+            flex-grow: 1;
+        }
+        /* Hide all pages by default, JavaScript will manage visibility */
+        .page-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        /* Style for the active page */
+        .page-content.active {
+            display: block;
+        }
+        /* Keyframe animation for smooth transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar for aesthetic purposes */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #3B82F6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E5E7EB;
+        }
+        /* Navigation link active state */
+        .nav-link.active {
+            color: #1E40AF;
+            border-bottom: 3px solid #1E40AF;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="text-dark-text">
+
+    <!-- Fixed Header/Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between h-10">
+                <a href="#home" class="text-2xl font-bold text-primary-blue hover:text-accent-blue transition duration-300">
+                    V.M.
+                </a>
+                <!-- Desktop Navigation Links -->
+                <div class="hidden sm:ml-6 sm:block">
+                    <div class="flex space-x-6 lg:space-x-10">
+                        <a href="#home" id="nav-home" class="nav-link text-lg text-gray-600 hover:text-primary-blue py-1 transition duration-200" onclick="showPage('home')">HOME</a>
+                        <a href="#skill" id="nav-skill" class="nav-link text-lg text-gray-600 hover:text-primary-blue py-1 transition duration-200" onclick="showPage('skill')">SKILL</a>
+                        <a href="#project" id="nav-project" class="nav-link text-lg text-gray-600 hover:text-primary-blue py-1 transition duration-200" onclick="showPage('project')">PROJECT</a>
+                        <a href="#about" id="nav-about" class="nav-link text-lg text-gray-600 hover:text-primary-blue py-1 transition duration-200" onclick="showPage('about')">ABOUT</a>
+                        <a href="#contact" id="nav-contact" class="nav-link text-lg text-gray-600 hover:text-primary-blue py-1 transition duration-200" onclick="showPage('contact')">CONTACT</a>
+                    </div>
+                </div>
+                <!-- Mobile Menu Button - Placeholder for a hamburger menu if needed -->
+                <div class="sm:hidden">
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-primary-blue focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Mobile Menu - Hidden by default -->
+    <div class="sm:hidden absolute w-full bg-white shadow-xl z-40 hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="#home" class="block nav-link rounded-md text-base font-medium text-gray-700 hover:bg-light-bg hover:text-primary-blue px-3 py-2" onclick="showPage('home'); document.getElementById('mobile-menu').classList.add('hidden');">HOME</a>
+            <a href="#skill" class="block nav-link rounded-md text-base font-medium text-gray-700 hover:bg-light-bg hover:text-primary-blue px-3 py-2" onclick="showPage('skill'); document.getElementById('mobile-menu').classList.add('hidden');">SKILL</a>
+            <a href="#project" class="block nav-link rounded-md text-base font-medium text-gray-700 hover:bg-light-bg hover:text-primary-blue px-3 py-2" onclick="showPage('project'); document.getElementById('mobile-menu').classList.add('hidden');">PROJECT</a>
+            <a href="#about" class="block nav-link rounded-md text-base font-medium text-gray-700 hover:bg-light-bg hover:text-primary-blue px-3 py-2" onclick="showPage('about'); document.getElementById('mobile-menu').classList.add('hidden');">ABOUT</a>
+            <a href="#contact" class="block nav-link rounded-md text-base font-medium text-gray-700 hover:bg-light-bg hover:text-primary-blue px-3 py-2" onclick="showPage('contact'); document.getElementById('mobile-menu').classList.add('hidden');">CONTACT</a>
+        </div>
+    </div>
+
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow">
+
+        <!-- 1. HOME PAGE -->
+        <section id="home" class="page-content active">
+            <div class="bg-white shadow-xl rounded-2xl p-8 md:p-16 flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-12 min-h-[60vh]">
+                <!-- Text Content -->
+                <div class="md:w-3/5">
+                    <h1 class="text-4xl sm:text-6xl font-extrabold text-primary-blue leading-tight mb-4">
+                        Hello, I'm <br class="sm:hidden">
+                        <span class="text-accent-blue block mt-1">VINCE MAHARIL</span>
+                    </h1>
+                    <p class="text-xl text-gray-700 mb-8 max-w-lg">
+                        A passionate Web Developer and Designer, blending aesthetic vision with clean, functional code. I build modern, responsive, and performant digital experiences.
+                    </p>
+                    <div class="flex space-x-4">
+                        <button onclick="showPage('project')" class="bg-primary-blue hover:bg-accent-blue text-white font-semibold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition duration-300">
+                            View Projects
+                        </button>
+                        <button onclick="showPage('contact')" class="border border-primary-blue text-primary-blue hover:bg-primary-blue hover:text-white font-semibold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition duration-300">
+                            Get In Touch
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Image Placeholder (Mimicking the drawing) -->
+                <div class="md:w-2/5 flex justify-center">
+                    <div class="w-64 h-64 sm:w-80 sm:h-80 bg-light-bg rounded-full border-4 border-accent-blue flex items-center justify-center overflow-hidden shadow-2xl">
+                        <!-- Placeholder Image (replace with a real photo) -->
+                        <img src="Vince1x1.jpg" alt="Vince">
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT PAGE -->
+        <section id="about" class="page-content">
+            <h2 class="text-4xl font-extrabold text-primary-blue mb-8 border-b-4 border-accent-blue pb-2 inline-block">ABOUT ME</h2>
+            <div class="bg-white shadow-xl rounded-2xl p-8 min-h-[60vh]">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Main About Text -->
+                    <div class="md:col-span-2">
+                        <p class="text-lg text-gray-700 mb-6">
+                            I am Vince Maharil, a dedicated enthusiast in the world of digital creation. My journey began with a curiosity for how things work on the web, evolving into a passion for designing interfaces that are not only beautiful but also intuitive and accessible. I thrive in environments where creativity meets technical challenge.
+                        </p>
+                        <p class="text-lg text-gray-700 mb-6">
+                            My focus is primarily on front-end development, specializing in modern JavaScript frameworks (like React or Vue, for example), paired with utility-first CSS frameworks like Tailwind. I believe a good portfolio tells a story, and I am here to tell mine through clean code and impactful design.
+                        </p>
+                        <p class="text-lg text-gray-700">
+                            Beyond coding, I enjoy learning about product design principles and constantly seeking ways to improve user experience. Let's build something amazing together!
+                        </p>
+                    </div>
+                    <!-- Fun Fact Cards (Mimicking the small blocks in the drawing) -->
+                    <div class="md:col-span-1 grid grid-cols-2 gap-4">
+                        <div class="bg-primary-blue text-white p-5 rounded-xl shadow-md text-center">
+                            <p class="text-4xl font-bold">4+</p>
+                            <p class="text-sm">Years Experience</p>
+                        </div>
+                        <div class="bg-accent-blue text-white p-5 rounded-xl shadow-md text-center">
+                            <p class="text-4xl font-bold">15</p>
+                            <p class="text-sm">Completed Projects</p>
+                        </div>
+                        <div class="bg-white border border-primary-blue text-primary-blue p-5 rounded-xl shadow-md text-center">
+                            <p class="text-4xl font-bold">A+</p>
+                            <p class="text-sm">Client Satisfaction</p>
+                        </div>
+                        <div class="bg-white border border-primary-blue text-primary-blue p-5 rounded-xl shadow-md text-center">
+                            <p class="text-4xl font-bold">JS</p>
+                            <p class="text-sm">Primary Stack</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3. SKILL PAGE -->
+        <section id="skill" class="page-content">
+            <h2 class="text-4xl font-extrabold text-primary-blue mb-8 border-b-4 border-accent-blue pb-2 inline-block">MY SKILLSET</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Hard Skills -->
+                <div class="bg-white shadow-xl rounded-2xl p-6">
+                    <h3 class="text-2xl font-semibold text-accent-blue mb-4 border-b pb-2">HARD SKILLS</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>JavaScript (ES6+)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>React.js / Next.js</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>HTML5 / CSS3 / Tailwind</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Node.js & Express</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Git / GitHub / CI/CD</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Database (SQL/NoSQL)</li>
+                    </ul>
+                </div>
+                <!-- Soft Skills -->
+                <div class="bg-white shadow-xl rounded-2xl p-6">
+                    <h3 class="text-2xl font-semibold text-accent-blue mb-4 border-b pb-2">SOFT SKILLS</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Problem Solving</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Team Collaboration</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Adaptability & Learning</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Effective Communication</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Time Management</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>User Empathy</li>
+                    </ul>
+                </div>
+                <!-- Something Else (Professional Focus) -->
+                <div class="bg-white shadow-xl rounded-2xl p-6">
+                    <h3 class="text-2xl font-semibold text-accent-blue mb-4 border-b pb-2">PROFESSIONAL FOCUS</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Responsive Design (Mobile First)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Web Accessibility (A11y)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Performance Optimization</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Cloud Services (e.g., Firebase, AWS)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>UI/UX Prototyping</li>
+                        <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-primary-blue mr-3"></span>Serverless Architecture</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PROJECT PAGE -->
+        <section id="project" class="page-content">
+            <h2 class="text-4xl font-extrabold text-primary-blue mb-8 border-b-4 border-accent-blue pb-2 inline-block">FEATURED PROJECTS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Project Card 1 (PIG-1) -->
+                <div class="bg-white shadow-xl rounded-2xl overflow-hidden hover:shadow-2xl transition duration-300">
+                    <div class="bg-light-bg h-48 flex items-center justify-center border-b-4 border-accent-blue">
+                        <span class="text-3xl font-bold text-gray-500" style="display: flex; text-align: center;">Digital Marketing <br> Graphics</span>
+                    </div>
+                    <div class="p-6">
+                        <img src="1.png" alt="">
+                        <h3 class="text-xl font-bold text-dark-text mb-2">Modern Graphics & Aesthetic</h3>
+                        <p class="text-gray-600 text-sm mb-4">This graphic design successfully uses warm, earthy tones and a playful illustration style to create an inviting atmosphere for a coffee break. The layout effectively highlights the main call to action ("Let's Take a Break") while providing necessary business hours and contact information.</p>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 (PIG-2) -->
+                <div class="bg-white shadow-xl rounded-2xl overflow-hidden hover:shadow-2xl transition duration-300">
+                    <div class="bg-light-bg h-48 flex items-center justify-center border-b-4 border-accent-blue">
+                        <span class="text-3xl font-bold text-gray-500" style="display: flex; text-align: center;">Mood Board</span>
+                    </div>
+                    <div class="p-6">
+                        <img src="3.png" alt="">
+                        <h3 class="text-xl font-bold text-dark-text mb-2">Mood Board</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+This moodboard beautifully captures the rich, warm, and cozy atmosphere of a modern coffee shop by focusing on deep brown and beige color palettes, steam, and ambient lighting. It effectively translates the "coffee break" theme into a concrete visual identity, blending elements of comfort and productivity.</p>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 (PIG-3) -->
+                <div class="bg-white shadow-xl rounded-2xl overflow-hidden hover:shadow-2xl transition duration-300">
+                    <div class="bg-light-bg h-48 flex items-center justify-center border-b-4 border-accent-blue">
+                        <span class="text-3xl font-bold text-gray-500" style="display: flex; text-align: center;">Social Media Graphic Design</span>
+                    </div>
+                    <div class="p-6">
+                        <img src="2.png" alt="">
+                        <h3 class="text-xl font-bold text-dark-text mb-2">Social Media Advertisement</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+This social media ad effectively utilizes a rich, warm brown palette and rustic visuals to immediately communicate the "coffee break" theme and promote the attractive "Buy 1 Get 1" deal. The design strategically places the key promotion alongside the central coffee cup illustration and features prominent social media icons to drive engagement.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. CONTACT PAGE -->
+        <section id="contact" class="page-content">
+            <h2 class="text-4xl font-extrabold text-primary-blue mb-8 border-b-4 border-accent-blue pb-2 inline-block">CONTACT ME</h2>
+            <div class="bg-white shadow-xl rounded-2xl p-8 md:p-12">
+                <p class="text-lg text-gray-700 mb-8 max-w-2xl">
+                    I'm currently available for freelance opportunities or full-time positions. Drop me a line—I'd love to discuss your project or ideas.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    
+                    <!-- Contact Form -->
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-blue focus:border-primary-blue" placeholder="Your Name" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-blue focus:border-primary-blue" placeholder="you@example.com" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary-blue focus:border-primary-blue" placeholder="How can I help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary-blue hover:bg-accent-blue text-white font-semibold py-3 px-4 rounded-lg shadow-md transform hover:scale-[1.01] transition duration-300">
+                            Send Message
+                        </button>
+                        <div id="contact-message" class="mt-4 text-center hidden p-3 rounded-lg bg-green-100 text-green-700"></div>
+                    </form>
+
+                    <!-- Social Links -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-8 h-8 text-primary-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.232 2.768 7.824 6.643 9.172-.033-.424-.078-.916-.078-1.428V17.8c-2.73 0-3.32-.888-3.59-1.396-.28-.516-.628-1.01-.226-1.503.402-.493 1.054-.42 1.488-.308.574.152 1.25.395 1.794.757.544.363.957.943 1.155 1.55.198.607.277 1.25.277 1.838v2.753c.045.093.09.19.135.285 3.875-1.348 6.643-4.94 6.643-9.172 0-5.523-4.477-10-10-10z"/></svg>
+                            <a href="mailto:vince.maharil@example.com" class="text-lg font-medium text-gray-800 hover:text-accent-blue transition duration-200">
+                                vince.maharil@example.com
+                            </a>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <!-- Instagram Icon (Inline SVG for aesthetic) -->
+                            <svg class="w-8 h-8 text-primary-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c2.71 0 3.056.01 4.123.064 1.066.054 1.776.223 2.418.479.627.247 1.146.596 1.637 1.087.49.49.839 1.01 1.087 1.637.256.642.425 1.352.479 2.418.054 1.067.064 1.413.064 4.123s-.01 3.056-.064 4.123c-.054 1.066-.223 1.776-.479 2.418-.247.627-.596 1.146-1.087 1.637-.49.49-1.01.839-1.637 1.087-.642.256-1.352.425-2.418.479-1.067.054-1.413.064-4.123.064s-3.056-.01-4.123-.064c-1.066-.054-1.776-.223-2.418-.479-.627-.247-1.146-.596-1.637-1.087-.49-.49-.839-1.01-1.087-1.637-.256-.642-.425-1.352-.479-2.418-.054-1.067-.064-1.413-.064-4.123s.01-3.056.064-4.123c.054-1.066.223-1.776.479-2.418.247-.627.596-1.146 1.087-1.637.49-.49 1.01-.839 1.637-1.087.642-.256 1.352-.425 2.418-.479C8.944 2.01 9.29 2 12 2zm0 2.2c-2.613 0-2.83 0-3.64.043-.808.04-1.32.193-1.666.337-.36.155-.658.373-.951.666-.294.293-.51.59-.666.951-.144.346-.297.858-.337 1.666-.043.81-.043 1.027-.043 3.64s0 2.83.043 3.64c.04.808.193 1.32.337 1.666.155.36.373.658.666.951.293.294.59.51.951.666.346.144.858.297 1.666.337.81.043 1.027.043 3.64.043s2.83 0 3.64-.043c.808-.04 1.32-.193 1.666-.337.36-.155.658-.373.951-.666.294-.293.51-.59.666-.951.144-.346.297-.858.337-1.666.043-.81.043-1.027.043-3.64s0-2.83-.043-3.64c-.04-.808-.193-1.32-.337-1.666-.155-.36-.373-.658-.666-.951-.293-.294-.59-.51-.951-.666-.346-.144-.858-.297-1.666-.337-.81-.043-1.027-.043-3.64-.043zm0 3.2c-2.43 0-4.4 1.97-4.4 4.4s1.97 4.4 4.4 4.4 4.4-1.97 4.4-4.4-1.97-4.4-4.4-4.4zm0 1.9c1.373 0 2.5 1.127 2.5 2.5s-1.127 2.5-2.5 2.5-2.5-1.127-2.5-2.5 1.127-2.5 2.5-2.5zm5.1-5.6c-.53 0-.96.43-.96.96s.43.96.96.96.96-.43.96-.96-.43-.96-.96-.96z"/></svg>
+                            <a href="https://www.instagram.com/vincemaharil" target="_blank" class="text-lg font-medium text-gray-800 hover:text-accent-blue transition duration-200">
+                                @vincemaharil (Instagram)
+                            </a>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <!-- Facebook Icon (Inline SVG for aesthetic) -->
+                            <svg class="w-8 h-8 text-primary-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.873V15.44H7.896V12h2.542V9.588c0-2.527 1.543-3.91 3.785-3.91 1.082 0 2.023.193 2.298.277V8.5h-1.44c-1.295 0-1.547.614-1.547 1.513V12h3.085l-.403 3.44h-2.682v5.433C18.343 21.128 22 16.991 22 12z"/></svg>
+                            <a href="https://www.facebook.com/vincemaharil" target="_blank" class="text-lg font-medium text-gray-800 hover:text-accent-blue transition duration-200">
+                                Vince Maharil (Facebook)
+                            </a>
+                        </div>
+                        
+                        <a href="https://linkedin.com/in/vincemaharil" target="_blank" class="flex items-center space-x-4 border border-gray-300 p-4 rounded-lg hover:shadow-lg transition duration-300 group">
+                            <!-- LinkedIn Icon -->
+                            <svg class="w-8 h-8 text-primary-blue group-hover:text-accent-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.528-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.77 7 2.504v6.731z"/></svg>
+                            <span class="text-lg font-medium text-gray-800 group-hover:text-accent-blue transition duration-200">
+                                Connect on LinkedIn
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Simple Footer -->
+    <footer class="bg-primary-blue mt-10 p-4 text-center text-white text-sm">
+        <p>&copy; 2023 Vince Maharil. All Rights Reserved. | Designed with <span class="text-accent-blue">❤️</span> and Tailwind CSS.</p>
+    </footer>
+
+    <!-- JavaScript for Page Switching and Interactivity -->
+    <script>
+        // Define all page IDs
+        const pageIds = ['home', 'skill', 'project', 'about', 'contact'];
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        /**
+         * Shows the requested page and updates the navigation bar to reflect the active page.
+         * @param {string} pageId - The ID of the page section to show (e.g., 'home', 'project').
+         */
+        function showPage(pageId) {
+            // 1. Hide all pages and remove 'active' class
+            pageIds.forEach(id => {
+                const page = document.getElementById(id);
+                if (page) {
+                    page.classList.remove('active');
+                }
+            });
+
+            // 2. Show the requested page
+            const activePage = document.getElementById(pageId);
+            if (activePage) {
+                activePage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
+            }
+
+            // 3. Update active state in the navigation bar
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeNav = document.getElementById(`nav-${pageId}`);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+        }
+
+        /**
+         * Handles routing based on the URL hash (e.g., #project).
+         */
+        function handleHashChange() {
+            const hash = window.location.hash.replace('#', '');
+            const targetPage = pageIds.includes(hash) ? hash : 'home'; // Default to 'home'
+            showPage(targetPage);
+        }
+
+        // Toggle mobile menu visibility
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Event listener for form submission (Contact Page)
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const messageBox = document.getElementById('contact-message');
+            
+            // In a real application, you would send this data to a backend server here.
+            // Example: fetch('/api/contact', { method: 'POST', body: new FormData(this) })
+
+            // Simulate success message
+            messageBox.textContent = 'Thank you for your message! I will get back to you shortly.';
+            messageBox.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+            messageBox.classList.add('bg-green-100', 'text-green-700');
+
+            this.reset(); // Clear the form
+        });
+
+
+        // Initial setup and routing
+        window.addEventListener('load', () => {
+            handleHashChange(); // Check URL hash on initial load
+        });
+        window.addEventListener('hashchange', handleHashChange); // Handle back/forward button
+        
+        // Ensure initial 'home' link is marked as active if no hash is present
+        if (window.location.hash === '' || !pageIds.includes(window.location.hash.replace('#', ''))) {
+             document.getElementById('nav-home').classList.add('active');
+        }
+
+    </script>
+</body>
+</html>
